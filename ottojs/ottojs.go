@@ -28,6 +28,7 @@ func (r *RuntimeEngine) InitModule(name, source string, globals map[string]inter
 	r.Lock()
 	defer r.Unlock()
 	r.modules[name] = otto.New()
+	r.modules[name].Run(`__module__ = "`+name+`"`)
 	r.setModuleGlobals(name, globals)
 	r.modules[name].Run(source)
 	return nil
